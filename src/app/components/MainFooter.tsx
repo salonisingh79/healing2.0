@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Facebook, Twitter, MapPin } from 'lucide-react';
+import { Instagram, Linkedin, Facebook, Twitter, MapPin, Phone, Mail } from 'lucide-react';
 import Asset4WhiteIcon from '../../imports/Asset4WhiteIcon1';
 import React from 'react';
 export function MainFooter() {
@@ -136,44 +136,60 @@ export function MainFooter() {
             </div>
           </Link>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-2.5">
-            <a 
-              href="https://instagram.com/thehealinggroove" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </a>
-            <a 
-              href="https://linkedin.com/company/thehealinggroove" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </a>
-            <a 
-              href="https://facebook.com/thehealinggroove" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
-              aria-label="Facebook"
-            >
-              <Facebook className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </a>
-            <a 
-              href="https://twitter.com/thehealinggroove" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
-              aria-label="Twitter"
-            >
-              <Twitter className="w-3.5 h-3.5" strokeWidth={1.5} />
-            </a>
+          {/* Social + Contact */}
+          <div className="flex flex-col items-start gap-2">
+            <div className="text-xs font-semibold text-white/70">Follow us</div>
+            <div className="flex items-center gap-2.5">
+              <a 
+                href="https://instagram.com/thehealinggroove" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </a>
+              <a 
+                href="https://linkedin.com/company/thehealinggroove" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </a>
+              <a 
+              href="https://www.facebook.com/profile.php?id=61578539474411" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </a>
+              <a 
+                href="https://twitter.com/thehealinggroove" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-7 h-7 rounded-full border border-white/20 hover:border-white hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-all"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </a>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-white/70">
+              <a href="tel:8427775621" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                <Phone className="w-3.5 h-3.5" />
+                <span>8427775621</span>
+              </a>
+              <a
+                href="mailto:info@thehealinggroove.com"
+                className="inline-flex items-center gap-2 hover:text-white transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>info@thehealinggroove.com</span>
+              </a>
+            </div>
           </div>
 
           {/* Legal Links */}
@@ -181,9 +197,10 @@ export function MainFooter() {
             <p className="text-xs text-white/40">
               © 2026 The Healing Groove
             </p>
-            <Link to="/corporate-wellness" className="text-xs text-white/50 hover:text-white/80 transition-colors">
+            {/* Corporate page is currently hidden */}
+            {/* <Link to="/corporate-wellness" className="text-xs text-white/50 hover:text-white/80 transition-colors">
               Corporate
-            </Link>
+            </Link> */}
             <Link to="/blog" className="text-xs text-white/50 hover:text-white/80 transition-colors">
               Blog
             </Link>

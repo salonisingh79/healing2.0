@@ -20,7 +20,9 @@ import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { DestinationPage } from './pages/DestinationPage';
 import { BlogPage } from './pages/BlogPage';
 import { ArticlePage } from './pages/ArticlePage';
-import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
+import { WhoWeArePage } from './pages/WhoWeArePage';
+import { ConnectWithUsPage } from './pages/ConnectWithUsPage';
+// import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
 import { TopNavigation } from './components/TopNavigation';
 import { MainFooter } from './components/MainFooter';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -72,8 +74,12 @@ export default function App() {
             <Route path="/blog" element={<><BlogPage /><MainFooter /></>} />
             <Route path="/blog/:slug" element={<><ArticlePage /><MainFooter /></>} />
             
+            {/* About Pages */}
+            <Route path="/who-we-are" element={<><WhoWeArePage /><MainFooter /></>} />
+            <Route path="/connect-with-us" element={<><ConnectWithUsPage /><MainFooter /></>} />
+            
             {/* Corporate Wellness Page */}
-            <Route path="/corporate-wellness" element={<><CorporateWellnessPage /><MainFooter /></>} />
+            {/* <Route path="/corporate-wellness" element={<><CorporateWellnessPage /><MainFooter /></>} /> */}
             
             {/* Legacy route */}
             <Route path="/journeys" element={<><HomePage /><MainFooter /></>} />
