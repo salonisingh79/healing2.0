@@ -79,9 +79,9 @@ export function EnquiryPage({
       data.append('companyName', formData.companyName);
       data.append('employees', formData.employees);
       data.append('Retreat_ID', retreatId);
-      data.append('Duration', bookingDetails.duration ? `${bookingDetails.duration} days` : 'N/A');
-      data.append('Start_Date', bookingDetails.startDate || 'N/A');
-      data.append('Price', bookingDetails.price ? `Rs. ${bookingDetails.price.toLocaleString('en-IN')}` : 'N/A');
+      bookingDetails.duration && data.append('Duration', bookingDetails.duration ? `${bookingDetails.duration} days` : 'N/A');
+      bookingDetails.startDate && data.append('Start_Date', bookingDetails.startDate || 'N/A');
+      bookingDetails.price && data.append('Price', bookingDetails.price ? `Rs. ${bookingDetails.price.toLocaleString('en-IN')}` : 'N/A');
       data.append('_subject', `${resolvedSubjectPrefix} ${formData.firstName} ${formData.lastName}`);
 
       const response = await fetch(FORMSPREE_URL, {
