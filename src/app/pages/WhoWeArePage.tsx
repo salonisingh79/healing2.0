@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { SimplePageLayout as PageLayout } from '../components/SimplePageLayout';
 import { Award, Brain, CheckCircle2, Heart, Sparkles } from 'lucide-react';
@@ -25,6 +25,14 @@ const ABOUT_IMAGE_1 = '/about/image%20(4).png';
 const ABOUT_IMAGE_2 = '/about/image%20(3).png';
 const ABOUT_IMAGE_3 = '/about/image%20(2).png';
 const ABOUT_IMAGE_4 = '/about/image%20(1).png';
+const CLIENT_TESTIMONIAL_IMAGES = [
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.48%20(1).jpeg',
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.48%20(2).jpeg',
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.48.jpeg',
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.49%20(1).jpeg',
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.49%20(2).jpeg',
+  '/clients/WhatsApp%20Image%202026-04-01%20at%2011.40.49.jpeg',
+];
 
 type InfoSection = {
   key: string;
@@ -99,6 +107,34 @@ const iconForSection: InfoSection[] = [
 
 export function WhoWeArePage() {
   const sections = iconForSection;
+  const loopingTestimonials = [...CLIENT_TESTIMONIAL_IMAGES, ...CLIENT_TESTIMONIAL_IMAGES];
+  const mobileCarouselRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const carousel = mobileCarouselRef.current;
+    if (!carousel) return;
+
+    const runAutoLoop = () => {
+      if (window.innerWidth >= 768) return;
+      const firstCard = carousel.querySelector('div > div') as HTMLDivElement | null;
+      if (!firstCard) return;
+
+      const styles = window.getComputedStyle(carousel.firstElementChild as Element);
+      const gap = parseFloat(styles.columnGap || styles.gap || '16');
+      const step = firstCard.offsetWidth + gap;
+      const maxLeft = carousel.scrollWidth - carousel.clientWidth;
+      const next = carousel.scrollLeft + step;
+
+      if (next >= maxLeft - 4) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        carousel.scrollTo({ left: next, behavior: 'smooth' });
+      }
+    };
+
+    const intervalId = window.setInterval(runAutoLoop, 2600);
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   return (
     <PageLayout>
@@ -217,6 +253,84 @@ export function WhoWeArePage() {
                   <div className="text-xs text-foreground/50 text-center">{company.industry}</div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* What Our Clients Say */}
+        <div className="py-16 lg:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 mb-4">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">What Our Clients Say</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-3">
+                Our Testimonials
+              </h2>
+              <p className="text-lg text-foreground/60 max-w-3xl mx-auto">
+                Real voices from people who experienced our healing sessions.
+              </p>
+            </motion.div>
+
+            {/* Mobile: swipe carousel */}
+            <div
+              ref={mobileCarouselRef}
+              className="md:hidden overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-2 px-2"
+            >
+              <div className="flex gap-4 pb-2">
+                {CLIENT_TESTIMONIAL_IMAGES.map((imageSrc, index) => (
+                  <motion.div
+                    key={`mobile-${imageSrc}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: index * 0.03 }}
+                    className="snap-center shrink-0 w-[88vw] max-w-[360px] rounded-xl overflow-hidden border border-muted/40"
+                  >
+                    <img
+                      src={imageSrc}
+                      alt={`Client testimonial ${index + 1}`}
+                      className="w-full h-auto object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tablet/Desktop: auto-looping strip */}
+            <div className="relative hidden md:block">
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 lg:w-12 bg-gradient-to-r from-white to-transparent z-10" />
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 lg:w-12 bg-gradient-to-l from-white to-transparent z-10" />
+
+              <div className="overflow-hidden px-8 lg:px-10">
+                <div className="testimonial-marquee-track flex gap-6 pb-2 w-max">
+                  {loopingTestimonials.map((imageSrc, index) => (
+                    <motion.div
+                      key={`${imageSrc}-${index}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.45, delay: index * 0.03 }}
+                      className="shrink-0 w-[280px] lg:w-[320px] overflow-hidden rounded-xl border border-muted/40"
+                    >
+                      <img
+                        src={imageSrc}
+                        alt={`Client testimonial ${(index % CLIENT_TESTIMONIAL_IMAGES.length) + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

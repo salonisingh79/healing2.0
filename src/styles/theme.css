@@ -251,3 +251,22 @@
     display: none;
   }
 }
+
+/* Auto-looping horizontal strip for client testimonials */
+@keyframes testimonialMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+.testimonial-marquee-track {
+  animation: testimonialMarquee 55s linear infinite;
+  will-change: transform;
+}
+
+.testimonial-marquee-track:hover {
+  animation-play-state: paused;
+}
