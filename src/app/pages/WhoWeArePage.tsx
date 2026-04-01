@@ -160,6 +160,16 @@ export function WhoWeArePage() {
                 Healing goes beyond medicine. We connect people with authentic healing experiences and corporate wellness sessions
                 built for trust, balance, and measurable wellbeing.
               </p>
+              <div className="mt-6">
+                <a
+                  href="/TheHealingGroove.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                >
+                  Get Your Quote
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
