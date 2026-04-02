@@ -75,9 +75,6 @@ export default function App() {
             
             {/* About (story + contact) */}
             <Route path="/about" element={<><AboutPage /><MainFooter /></>} />
-            <Route path="/who-we-are" element={<Navigate to="/about" replace />} />
-            <Route path="/connect-with-us" element={<Navigate to="/about#contact" replace />} />
-            
             {/* Corporate Wellness Page */}
             {/* <Route path="/corporate-wellness" element={<><CorporateWellnessPage /><MainFooter /></>} /> */}
             

@@ -3,6 +3,12 @@
   RewriteBase /
 
   RewriteRule ^index\.html$ - [L]
+
+  # Route /about is a React route, but /about/ is also a real folder (static images).
+  # Without this, reload on /about hits the directory → 403 Forbidden.
+  RewriteCond %{REQUEST_URI} ^/about/?$
+  RewriteRule ^ /index.html [L]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
