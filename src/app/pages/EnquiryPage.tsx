@@ -17,6 +17,8 @@ type ContactInfo = {
 };
 
 type EnquiryPageProps = {
+  // Renders without SimplePageLayout (e.g. embedded on the About page).
+  embedded?: boolean;
   // Used by the "Connect with Us" route which is not mounted on `/enquiry/:id`.
   retreatIdOverride?: string;
   topHeading?: string;
@@ -31,6 +33,7 @@ type EnquiryPageProps = {
 };
 
 export function EnquiryPage({
+  embedded = false,
   retreatIdOverride,
   topHeading,
   topDescription,
@@ -47,6 +50,9 @@ export function EnquiryPage({
 
   const isConnectVariant = variant === 'connect';
   const shouldShowBackButton = showBackButton ?? !isConnectVariant;
+
+  const layoutWrap = (inner: React.ReactNode) =>
+    embedded ? <>{inner}</> : <PageLayout>{inner}</PageLayout>;
   const resolvedSubjectPrefix =
     subjectPrefix ??
     (retreatId?.toLowerCase().includes('corporate')
@@ -109,41 +115,46 @@ export function EnquiryPage({
 
   // ── SUCCESS STATE ──
   if (status === 'success') {
-    return (
-      <PageLayout>
-        <div className="bg-gradient-to-b from-primary/5 to-white min-h-[70vh] flex items-center justify-center py-12">
-          <div className="max-w-md mx-auto px-6 text-center">
-            <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-green-500" />
-            </div>
-            <h2 className="text-3xl font-bold text-foreground mb-3">Enquiry Submitted!</h2>
-            <p className="text-foreground/60 mb-2 text-lg">
-              Thank you, <span className="font-semibold text-foreground">{formData.firstName}</span>!
-            </p>
-            <p className="text-foreground/60 mb-8">
-              Our wellness care guide will reach out to you at <span className="font-semibold text-foreground">{formData.email}</span> within 24 hours to discuss your booking.
-            </p>
-            <button
-              onClick={() => navigate('/')}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all"
-            >
-              Back to Home
-            </button>
+    return layoutWrap(
+      <div
+        className={
+          embedded
+            ? 'bg-gradient-to-b from-primary/5 to-white py-16 lg:py-20'
+            : 'bg-gradient-to-b from-primary/5 to-white min-h-[70vh] flex items-center justify-center py-12'
+        }
+      >
+        <div className="max-w-md mx-auto px-6 text-center">
+          <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-green-500" />
           </div>
+          <h2 className="text-3xl font-bold text-foreground mb-3">Enquiry Submitted!</h2>
+          <p className="text-foreground/60 mb-2 text-lg">
+            Thank you, <span className="font-semibold text-foreground">{formData.firstName}</span>!
+          </p>
+          <p className="text-foreground/60 mb-8">
+            Our wellness care guide will reach out to you at <span className="font-semibold text-foreground">{formData.email}</span> within 24 hours to discuss your booking.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold transition-all"
+          >
+            Back to Home
+          </button>
         </div>
-      </PageLayout>
+      </div>,
     );
   }
 
-  return (
-    <PageLayout>
-      <div
-        className={
-          isConnectVariant
-            ? 'bg-white py-14 lg:py-16'
-            : 'bg-gradient-to-b from-primary/5 to-white py-12'
-        }
-      >
+  return layoutWrap(
+    <div
+      className={
+        isConnectVariant
+          ? embedded
+            ? 'bg-transparent py-0'
+            : 'bg-white py-14 lg:py-16'
+          : 'bg-gradient-to-b from-primary/5 to-white py-12'
+      }
+    >
         <div className={isConnectVariant ? 'max-w-7xl mx-auto px-6' : 'max-w-3xl mx-auto px-6'}>
           <div className={isConnectVariant ? 'grid lg:grid-cols-2 gap-12 items-start' : 'grid grid-cols-1'}>
             <div>
@@ -374,7 +385,6 @@ export function EnquiryPage({
             </div>
           </div>
         </div>
-      </div>
-    </PageLayout>
+    </div>,
   );
 }

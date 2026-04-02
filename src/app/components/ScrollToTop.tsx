@@ -2,16 +2,25 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 export function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Scroll to top immediately when route changes
+    const id = hash?.replace(/^#/, '');
+    if (id) {
+      const el = document.getElementById(id);
+      if (el) {
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        return;
+      }
+    }
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'instant' // Use instant instead of smooth for immediate effect
+      behavior: 'instant',
     });
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return null;
 }

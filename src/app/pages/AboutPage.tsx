@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { SimplePageLayout as PageLayout } from '../components/SimplePageLayout';
+import { EnquiryPage } from './EnquiryPage';
 import { Award, Brain, CheckCircle2, Heart, Sparkles } from 'lucide-react';
 
 const trustedCompanies = [
@@ -105,7 +106,7 @@ const iconForSection: InfoSection[] = [
   },
 ];
 
-export function WhoWeArePage() {
+export function AboutPage() {
   const sections = iconForSection;
   const loopingTestimonials = [...CLIENT_TESTIMONIAL_IMAGES, ...CLIENT_TESTIMONIAL_IMAGES];
   const mobileCarouselRef = useRef<HTMLDivElement | null>(null);
@@ -154,13 +155,13 @@ export function WhoWeArePage() {
                 <span className="text-sm font-semibold text-primary">About</span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-                Who We Are
+                About The Healing Groove
               </h1>
               <p className="text-xl text-foreground/70 leading-relaxed">
                 Healing goes beyond medicine. We connect people with authentic healing experiences and corporate wellness sessions
                 built for trust, balance, and measurable wellbeing.
               </p>
-              <div className="mt-6">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="/TheHealingGroove.pdf"
                   target="_blank"
@@ -168,6 +169,12 @@ export function WhoWeArePage() {
                   className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
                 >
                   Get Your Quote
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl border-2 border-primary text-primary font-semibold hover:bg-primary/5 transition-all"
+                >
+                  Contact us
                 </a>
               </div>
             </motion.div>
@@ -400,6 +407,31 @@ export function WhoWeArePage() {
             </div>
           </div>
         ))}
+
+        <section
+          id="contact"
+          className="scroll-mt-24 border-t border-muted/40 bg-muted/10 py-10 lg:py-14"
+          aria-label="Contact"
+        >
+          <EnquiryPage
+            embedded
+            retreatIdOverride="general"
+            variant="connect"
+            showBackButton={false}
+            subjectPrefix="New Healing Groove Enquiry from"
+            topHeading="Connect With Us"
+            topDescription="Whether you're planning a wellness program or seeking guidance, share your details and we'll respond within 24 hours."
+            contactInfo={{
+              phone: '8427775621',
+              officialEmail: 'info@thehealinggroove.com',
+              alternateEmail: 'chetnahealinggroove@gmail.com',
+              linkedinUrl: 'https://www.linkedin.com/company/the-healing-groove/',
+              twitterUrl: 'https://x.com/HealingGroove',
+              instagramUrl:
+                'https://www.instagram.com/the_healing_groove?igsh=ajVnMHV5NmZ3cDQ0&utm_source=qr',
+            }}
+          />
+        </section>
       </div>
     </PageLayout>
   );

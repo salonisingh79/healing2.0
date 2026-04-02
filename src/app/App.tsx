@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage } from './components/HomePage';
 import { CentreDetail } from './components/CentreDetail';
 import { SearchResultsPage } from './pages/SearchResultsPage';
@@ -20,8 +20,7 @@ import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { DestinationPage } from './pages/DestinationPage';
 import { BlogPage } from './pages/BlogPage';
 import { ArticlePage } from './pages/ArticlePage';
-import { WhoWeArePage } from './pages/WhoWeArePage';
-import { ConnectWithUsPage } from './pages/ConnectWithUsPage';
+import { AboutPage } from './pages/AboutPage';
 // import { CorporateWellnessPage } from './pages/CorporateWellnessPage';
 import { TopNavigation } from './components/TopNavigation';
 import { MainFooter } from './components/MainFooter';
@@ -74,9 +73,10 @@ export default function App() {
             <Route path="/blog" element={<><BlogPage /><MainFooter /></>} />
             <Route path="/blog/:slug" element={<><ArticlePage /><MainFooter /></>} />
             
-            {/* About Pages */}
-            <Route path="/who-we-are" element={<><WhoWeArePage /><MainFooter /></>} />
-            <Route path="/connect-with-us" element={<><ConnectWithUsPage /><MainFooter /></>} />
+            {/* About (story + contact) */}
+            <Route path="/about" element={<><AboutPage /><MainFooter /></>} />
+            <Route path="/who-we-are" element={<Navigate to="/about" replace />} />
+            <Route path="/connect-with-us" element={<Navigate to="/about#contact" replace />} />
             
             {/* Corporate Wellness Page */}
             {/* <Route path="/corporate-wellness" element={<><CorporateWellnessPage /><MainFooter /></>} /> */}

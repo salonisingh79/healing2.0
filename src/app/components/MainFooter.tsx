@@ -35,8 +35,7 @@ export function MainFooter() {
               <Link to="/how-it-works" className="text-white/70 hover:text-white transition-colors">How It Works</Link>
               <Link to="/why-india" className="text-white/70 hover:text-white transition-colors">Why India</Link>
               <Link to="/stories" className="text-white/70 hover:text-white transition-colors">Stories</Link>
-              <Link to="/who-we-are" className="text-white/70 hover:text-white transition-colors">Who We Are</Link>
-              <Link to="/connect-with-us" className="text-white/70 hover:text-white transition-colors">Connect With Us</Link>
+              <Link to="/about" className="text-white/70 hover:text-white transition-colors">About</Link>
             </div>
           </div>
 

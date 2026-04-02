@@ -1,26 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Asset5ColorIcon from '../../imports/Asset5ColorIcon1';
 import React from 'react';
 export function TopNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const aboutWrapperRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!isAboutOpen) return;
-
-    const onDocumentDown = (e: MouseEvent) => {
-      const wrapper = aboutWrapperRef.current;
-      if (!wrapper) return;
-      if (e.target instanceof Node && !wrapper.contains(e.target)) setIsAboutOpen(false);
-    };
-
-    document.addEventListener('mousedown', onDocumentDown);
-    return () => document.removeEventListener('mousedown', onDocumentDown);
-  }, [isAboutOpen]);
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-muted/50 shadow-sm">
@@ -47,48 +32,12 @@ export function TopNavigation() {
             >
               Explore Wellness
             </Link> */}
-            <div className="relative" ref={aboutWrapperRef}>
-              <button
-                type="button"
-                onClick={() => setIsAboutOpen((v) => !v)}
-                className="px-4 py-2 rounded-lg text-base font-semibold text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all flex items-center gap-1"
-                aria-haspopup="menu"
-                aria-expanded={isAboutOpen}
-              >
-                About
-                <ChevronDown className="w-4 h-4 text-primary/70" />
-              </button>
-
-              <AnimatePresence>
-                {isAboutOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -8, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                    transition={{ duration: 0.16 }}
-                    className="absolute left-0 top-full mt-3 w-56 bg-white border border-muted/50 shadow-xl rounded-2xl overflow-hidden z-50"
-                    role="menu"
-                  >
-                    <Link
-                      to="/who-we-are"
-                      onClick={() => setIsAboutOpen(false)}
-                      className="block px-5 py-3 text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
-                      role="menuitem"
-                    >
-                      Who We Are
-                    </Link>
-                    <Link
-                      to="/connect-with-us"
-                      onClick={() => setIsAboutOpen(false)}
-                      className="block px-5 py-3 text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
-                      role="menuitem"
-                    >
-                      Connect with us
-                    </Link>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            <Link
+              to="/about"
+              className="px-4 py-2 rounded-lg text-base font-semibold text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
+            >
+              About
+            </Link>
             <Link
               to="/how-it-works"
               className="px-4 py-2 rounded-lg text-base font-semibold text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
@@ -177,18 +126,11 @@ export function TopNavigation() {
                 Stories
               </Link>
               <Link
-                to="/who-we-are"
+                to="/about"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
               >
-                Who We Are
-              </Link>
-              <Link
-                to="/connect-with-us"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-4 py-3 rounded-lg text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all"
-              >
-                Connect with us
+                About
               </Link>
               <Link
                 to="/for-centres"
